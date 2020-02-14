@@ -2,14 +2,19 @@
 
 This is an attempt at a LastPass Secrets Management extension, inspired by @JustinWGrote's SecretsManagement.KeePass.
 
-The inner module (ImplementingModule) may need to be renamed to SecretsManagementExtension in the future
-It is currently based on the [blog post here](https://devblogs.microsoft.com/powershell/secrets-management-module-vault-extensions/) which references [this example module](https://github.com/PowerShell/Modules/tree/master/Samples/VaultExtension/Modules/ScriptLocalVault).
+It's entirely possible that, due to the bizarre way SecretsManagement currently handles script modules, you will be prompted to login _every time_ you access a vault. This is due to SecretsManagement creating a new PS session every time _anything_ is done with a script module, which is clearly an interesting design decision from a script-based perspective.
 
 # Using the Module
 
 ```PowerShell
 # Register LastPass by running the SecretsManagement registration command
 Register-SecretsVault -Name LastPass -ModuleName SecretsManagement.LastPass
+
+# Get a list of available secrets, showing only names and (roughly) type of content
+Get-SecretInfo
+
+# Get a list of available secrets like Azure*
+# Get-SecretInfo -Filter "Azure*"
 ```
 
 ## Requirements
@@ -20,3 +25,7 @@ Register-SecretsVault -Name LastPass -ModuleName SecretsManagement.LastPass
 ## Building the Module
 
 ## Testing the Module
+
+# Thanks / Acknowledgements
+
+Though I started trying to play with this on my own, it turns out (as ever) that someone (in this case @ScottEvtuch) had done everything I was trying to already in [PSLastPass](https://github.com/ScottEvtuch/PSLastPass/). Consequently, there are currently several bits that have been wholeheartedly borrowed.

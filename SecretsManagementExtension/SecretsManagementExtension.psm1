@@ -1,0 +1,1 @@
+foreach ($Function in Get-ChildItem $PSScriptRoot -Recurse -Filter *.ps1) {. $Function.FullName}  # Forgive this, for now
